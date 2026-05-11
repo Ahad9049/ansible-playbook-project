@@ -1,18 +1,16 @@
---- 
- - name: update ubuntu and amazon servers
-   hosts: all
-   become: yes
-   tasks:
-     - name: update ubuntu servers 
-        apt: 
-          update_cache: yes 
-          upgrade: dist
-          state: latest
-        when ansible_distribution == "ubuntu"
-          
-     - name: update amazon servers
-        yum:
-          name: "*"
-          update_cache: yes
-          upgrade: dist
-        when ansible_distribution == "Amazon"
+---
+- name: update ubuntu and amazon servers
+  hosts: all
+  become: yes
+  tasks:
+    - name: update ubuntu servers
+      apt:
+        update_cache: yes
+        upgrade: dist
+      when: ansible_distribution == "Ubuntu"
+
+    - name: update amazon servers
+      yum:
+        name: "*"
+        update_cache: yes
+      when: ansible_distribution == "Amazon"
